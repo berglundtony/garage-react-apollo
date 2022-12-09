@@ -12,19 +12,6 @@ const client = new ApolloClient({
   }),
   credentials: "same-origin",
 });
-/*client
-  .query({
-query: gql`
-    query GetCars{
-        cars{
-            registryNumber
-            brand
-            model
-            yearModel
-            color
-        }
-    }`
-  }).then((result) => console.log(result)) */
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
