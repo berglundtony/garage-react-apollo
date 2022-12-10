@@ -1,45 +1,43 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { AddCar } from "./pages/addcar/AddCar";
+import { ListCars } from "./pages/listCars/ListCars";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client';
 
-const GET_CARS =
- gql`
-      query GetCars{
-          cars{
-              registryNumber
-              brand
-              model
-              yearModel
-              color
-          }
-      }`
-;
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: "https://localhost:7154/graphql" // your graphql server link
+  }),
+  credentials: "same-origin",
+});
 
-function DisplayCars(){
-  const { loading, error, data } = useQuery(GET_CARS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
-  return data.cars.map(( { registryNumber, brand, model, yearModel, color}) =>(
-     <div className="container">
-     <div key={registryNumber}>
-      <h3>{brand}</h3>
-      <b>About this car:</b>
-      <p>Model: {model}</p>
-      <p>Yearmodel: {yearModel}</p>
-      <p>Color: {color}</p>
-      <br/>
-     </div>
-     </div>
-  ))
-}
-export default function App() {
+function AppRouter(){
   return (
-    <div>
-    <h2>My first Apollo app 🚀</h2>
-    <DisplayCars />
-  </div> 
+    <div id="wrapper">
+      <Router>
+        <Header />
+          <Routes>
+            <Route path="/AddCar" element={<AddCar/>}/>
+            <Route path="/ListCars" element={<ListCars/>}/>
+          </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
-}
+} 
+
+function App() {
+  return (
+    <ApolloProvider client = {client}>
+      <AppRouter />
+    </ApolloProvider>
+  );
+} 
+
+export default App;
+require('dotenv').config()

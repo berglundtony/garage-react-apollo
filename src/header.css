@@ -1,0 +1,16 @@
+.search1 input{
+  float:left;
+  background: #fff;
+}
+  
+  .navbar-nav > li{
+    float:left;
+  }
+  .navbar-default .navbar-nav > li a {
+    color: #bdfef2;
+    text-decoration: none;
+    display: block;
+    padding: 15px 13px;
+    font-size: 14px;
+    transition: all 0.5s ease;
+}
