@@ -6,9 +6,9 @@ export function Footer() {
   return (
     <footer>
       <div className="container">
-        <div className="main-footer col-md-12 col-xs-12">
-          <div className="links col-md-5 col-md-5 col-xs-10">
-            <ul className="quick-links col-md-4 col-xs-6">
+        <div className="main-footer col-lg-12 col-md-12 col-xs-12">
+          <div className="links">
+            <ul className="quick-links col-lg-10 col-md-10 col-xs-6">
               <li>
                 <Link to="/listCars">Cars</Link>
               </li>
@@ -17,6 +17,9 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/searchCar">Find a car</Link>
+              </li>
+              <li>
+                <Link to="/editCar">Editcar</Link>
               </li>
             </ul>
           </div>

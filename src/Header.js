@@ -6,7 +6,7 @@ function NavLinks() {
     return (
       <ul className="navbar-nav mr-auto">
         <li className="nav-item">
-          <Link className="nav-link disabled" to="/addCar">
+          <Link className="nav-link" to="/addCar">
             Add Car
           </Link>
         </li>

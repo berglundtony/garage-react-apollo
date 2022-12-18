@@ -1,68 +1,76 @@
-import React, { useState } from "react";
-import {gql, useMutation, } from '@apollo/client';
+export default function CarForm(preloadedValues){
+/* const preloadedValues = {
+    registryNumber: "KSP166",
+    brand: "Mercedes",
+    model: "C180",
+    yearModel: 2010,
+    color: "red"
+  }; */
 
-const CAR_ATTRIBUTES = gql`
-  fragment CarInfo on CarType {
-    registryNumber
-    brand
-    model
-    yearModel
-    color
-  }
-`;
-
-const CREATE_CAR = gql`
-  mutation addCar($car: CarInputType!) {
-    createCar(car: $car) {
-      ...CarInfo
+  
+/*
+  useEffect(() => {
+    const fetchData = async() => {
+      setData(await getCarData())
     }
+    fetchData()
+    },[])
   }
-  ${CAR_ATTRIBUTES}
-`;
+*/
+  const { register, handleSubmit } = useForm({
+    defaultValues: preloadedValues
+  });
 
-const ADD_NEW_CAR = gql`
-mutation createCar($car: CarInputType!){
-  createCar(car: $car)
-  {
-    registryNumber
-    brand
-    model
-    yearModel
-    color
-  }
-}
-`;
-
-
-
-export default function AddCarForm(){
-
-  const[createCar,  { loading, called, error }] = useMutation(ADD_NEW_CAR);
-
-  /*const updateCars = (cache, { data }) => {
-    cache.modify({ 
-      fields: {
-        cars(exisitingCars = []) {
-          const newCar = data.create;
-          cache.writeQuery({
-            query: ALL_CARS,
-            data: { newCar, ...exisitingCars }
-          });
-        }
-      }
-    })
-  };*/
   const [registryNumber, setRegistryNumber] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("")
   const [yearModel, setYearModel] = useState("")
   const [color, setColor] = useState("") 
+/*
+  function submitForm(){
+    const registryNumber = registryNumber.current.value;
+    const brand = brand.current.value;
+    const model = model.current.value;
+    const yearModel = yearModel.current.value;
+    const color = color.current.value;
+  }
+
+ useEffect(() => {
+  if(localStorage.getItem("registryNumber")){
+    const registryNumber = localStorage.getItem("setRegistryNumber")
+    setRegistryNumber(registryNumber);
+  }
+  if(localStorage.getItem("brand")){
+    const brand = localStorage.getItem("setBrand")
+    setBrand(brand);
+  }
+  if(localStorage.getItem("model")){
+    const model = localStorage.getItem("model")
+    setModel(model);
+  }
+  if(localStorage.getItem("yearModel")){
+    const yearModel = localStorage.setItem("yearModel")
+    setYearModel(yearModel);
+  }
+  if(localStorage.getItem("color")){
+    const color = localStorage.getItem("color")
+    setColor(color);
+  }
+ }, []);
+ 
+  const { loading, error, called } = useQuery(GET_CARS);
 
   
   if (loading) return 'Submitting...';
   if(called) return <p>The car was submitted Successfully!</p>
   if (error) return `Submission error! ${error.message}`;
+   */
+  let params = useParams();
 
+
+  //const[updateCar,data] = useMutation(EDIT_CAR);
+
+ 
   return(
     <div	
     style={{	
@@ -73,23 +81,10 @@ export default function AddCarForm(){
       padding: 10,	
     }}	
   >	
-  <form onSubmit = {(e) => {
-          e.preventDefault();
-         createCar({
-          variables: 
-          {
-            car: {
-              registryNumber: registryNumber, 
-              brand: brand,
-              model: model,
-              yearModel: parseInt(yearModel),
-              color: color 
-            }
-          }
-      });
-  }} 
-   >
- <h3 className="h3 mb-3 font-weight-normal">Submit a Car!</h3>	
+  
+  <p>Registrynumber: {params.registryNumber}</p>
+<form onSubmit = {handleSubmit(onsubmit)} > 
+ <h3 className="h3 mb-3 font-weight-normal">Edit a Car!</h3>	
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
     <label htmlFor="inputRegistryNumber">Registration number</label>
         <input
@@ -98,8 +93,9 @@ export default function AddCarForm(){
             required	
             autoFocus	
             name="registryNumber"	
+            ref="registryNumber"
             value={registryNumber}
-            onChange={(e) => setRegistryNumber(e.target.value) }
+          //  onChange={(e) => setRegistryNumber(e.target.value) }
           />
     </div>
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
@@ -109,7 +105,7 @@ export default function AddCarForm(){
           className="form-control"
           required	
           value={brand}
-          onChange={(e) => setBrand(e.target.value) }
+        //  onChange={(e) => setBrand(e.target.value) }
         />	
   </div>
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
@@ -120,7 +116,7 @@ export default function AddCarForm(){
           required	
           name="model"
           value={model}	
-          onChange={(e) => setModel(e.target.value) }
+         // onChange={(e) => setModel(e.target.value) }
         />	
   </div>
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
@@ -131,7 +127,7 @@ export default function AddCarForm(){
         required	
         name="yearmodel"
         value={yearModel}	
-        onChange={(e) => setYearModel(e.target.value) }
+      //  onChange={(e) => setYearModel(e.target.value) }
       />	
   </div>
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
@@ -142,7 +138,7 @@ export default function AddCarForm(){
           required	
           name="color"
           value={color}	
-          onChange={(e) => setColor(e.target.value)}	
+        //  onChange={(e) => setColor(e.target.value)}	
         />	
   </div>
   <div style={{ justifyContent: "center", alignContent: "center" }}>
@@ -150,22 +146,4 @@ export default function AddCarForm(){
   </div>
   </form>
 </div>
-  );
-}
-
-export function AddCar() {
-  return (
-    <>
-    <section className="banner">
-      <div className="container">
-      <div className="row"> 
-      <AddCarForm />
-      </div>
-      </div>
-    </section>
-    </>
-  );
-} 
-
-//require('dotenv').config()
-
+  )};

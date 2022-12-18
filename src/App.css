@@ -3,7 +3,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #72757b;
   min-height: 140vh;
   display: flex;
   flex-direction: column;
@@ -53,7 +53,7 @@ header {
   padding: 15px 0px 15px;
   margin: 5%, 5%,5%,5%;
   float: left;
-  background: #212121;
+  background-color: #72757b;
 }
 .mobile-togle {
   display: none;
@@ -340,6 +340,28 @@ nav.navbar {
   -webkit-transform-origin: 10% 90%;
   -ms-transform-origin: 10% 90%;
   transform-origin: 10% 90%;
+}
+
+.quick-links {
+  list-style: none;
+}
+
+.links {
+  height: 80px;
+  padding: 2px 0px 0px;
+}
+.quick-links li{
+  float:left;
+}
+.quick-links li a {
+  display:block;
+  overflow: hidden;
+  color: #5e5e5e;
+  font-family: "Open Sans";
+  font-size: 20px;
+  text-decoration: none;
+  line-height: 34px;
+  padding: 20px;
 }
 
 /* ANIMATED X COLLAPSED */
