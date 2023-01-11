@@ -1,5 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useQuery } from "react";
 import {gql, useMutation, } from '@apollo/client';
+
+const GET_CARS =
+ gql`
+      query GetCars{
+          cars{
+              registryNumber
+              brand
+              model
+              yearModel
+              color
+          }
+      }`
+;
 
 const CAR_ATTRIBUTES = gql`
   fragment CarInfo on CarType {
@@ -32,26 +45,72 @@ mutation createCar($car: CarInputType!){
   }
 }
 `;
+function AllCarsList(){
+  const { loading, error, data } = useQuery(GET_CARS);
 
+  if (loading) return <p>Loading Cars..</p>
+  
+  if (error) return <p>Error loading Cars!</p>
+
+  const results = [];
+
+  return data.cars.map((car) =>(
+    <AddCarForm
+    key={car.registryNumber}
+    car={{
+      ...car
+    }}
+    />
+  ));
+}
 
 
 export default function AddCarForm(){
 
-  const[createCar,  { loading, called, error }] = useMutation(ADD_NEW_CAR);
-
-  /*const updateCars = (cache, { data }) => {
+ /* const updateCars = (cache, { data }) => {
     cache.modify({ 
       fields: {
         cars(exisitingCars = []) {
           const newCar = data.create;
-          cache.writeQuery({
+          cache.writeCar({
             query: ALL_CARS,
             data: { newCar, ...exisitingCars }
           });
         }
       }
     })
-  };*/
+  } */
+
+  const[createCar,  { loading, called, error }] = useMutation(ADD_NEW_CAR,
+    { update(cache, { data: { addCar}}){
+      cache.modefy({
+        fields:{
+          cars(existingCars = []){
+            const newCarRef = cache.writeFragment({
+              data: addCar,
+              fragment: gql`
+              fragment NewCar on Car{
+                registryNumber
+                brand
+                model
+                yearModel
+                color
+              }
+              `
+            });
+            return[...existingCars, newCarRef];
+           /* cache.writeCar({
+              query: ALL_CARS,
+              data: { newCar, ...existingCars }
+              }); */
+            }
+          }
+        });
+       
+      }
+    });
+
+
   const [registryNumber, setRegistryNumber] = useState("");
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("")
@@ -85,7 +144,15 @@ export default function AddCarForm(){
               yearModel: parseInt(yearModel),
               color: color 
             }
-          }
+          },
+          update(cashe, result){
+
+          },
+       /*   onQueryUpdated(observableQuery){
+            if(shouldRefetchQuery(observableQuery)){
+              return observableQuery.refetch();
+            }
+          } */
       });
   }} 
    >
