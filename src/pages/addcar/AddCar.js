@@ -24,15 +24,6 @@ const CAR_ATTRIBUTES = gql`
   }
 `;
 
-const CREATE_CAR = gql`
-  mutation addCar($car: CarInputType!) {
-    createCar(car: $car) {
-      ...CarInfo
-    }
-  }
-  ${CAR_ATTRIBUTES}
-`;
-
 const ADD_NEW_CAR = gql`
 mutation createCar($car: CarInputType!){
   createCar(car: $car)
@@ -45,41 +36,8 @@ mutation createCar($car: CarInputType!){
   }
 }
 `;
-function AllCarsList(){
-  const { loading, error, data } = useQuery(GET_CARS);
-
-  if (loading) return <p>Loading Cars..</p>
-  
-  if (error) return <p>Error loading Cars!</p>
-
-  const results = [];
-
-  return data.cars.map((car) =>(
-    <AddCarForm
-    key={car.registryNumber}
-    car={{
-      ...car
-    }}
-    />
-  ));
-}
-
 
 export default function AddCarForm(){
-
- /* const updateCars = (cache, { data }) => {
-    cache.modify({ 
-      fields: {
-        cars(exisitingCars = []) {
-          const newCar = data.create;
-          cache.writeCar({
-            query: ALL_CARS,
-            data: { newCar, ...exisitingCars }
-          });
-        }
-      }
-    })
-  } */
 
   const[createCar,  { loading, called, error }] = useMutation(ADD_NEW_CAR,
     { update(cache, { data: { addCar}}){
@@ -89,7 +47,7 @@ export default function AddCarForm(){
             const newCarRef = cache.writeFragment({
               data: addCar,
               fragment: gql`
-              fragment NewCar on Car{
+                fragment NewCar on Car{
                 registryNumber
                 brand
                 model
@@ -99,10 +57,6 @@ export default function AddCarForm(){
               `
             });
             return[...existingCars, newCarRef];
-           /* cache.writeCar({
-              query: ALL_CARS,
-              data: { newCar, ...existingCars }
-              }); */
             }
           }
         });
@@ -146,16 +100,9 @@ export default function AddCarForm(){
             }
           },
           update(cashe, result){
-
           },
-       /*   onQueryUpdated(observableQuery){
-            if(shouldRefetchQuery(observableQuery)){
-              return observableQuery.refetch();
-            }
-          } */
       });
-  }} 
-   >
+  }}>
  <h3 className="h3 mb-3 font-weight-normal">Submit a Car!</h3>	
   <div className="mb-3" style={{ paddingBottom: 5 }}>	
     <label htmlFor="inputRegistryNumber">Registration number</label>
@@ -233,6 +180,4 @@ export function AddCar() {
     </>
   );
 } 
-
-//require('dotenv').config()
 

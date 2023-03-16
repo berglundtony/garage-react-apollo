@@ -34,7 +34,7 @@ function AppRouter(){
           <Routes>
             <Route path="/AddCar" element={<AddCar/>}/>
             <Route path="/ListCars" element={<ListCars/>}/>
-            <Route path="/EditCar/:registryNumber" element={<EditCar/>}/>
+            <Route path="/EditCar" element={<EditCar/>}/>
           </Routes>
         <Footer />
       </Router>
