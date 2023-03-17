@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = CarvedRock.Api
+build_property.ProjectDir = C:\PROJEKT\building-graphql-apis-aspdotnet-core\05\demos\CarvedRock.Api\

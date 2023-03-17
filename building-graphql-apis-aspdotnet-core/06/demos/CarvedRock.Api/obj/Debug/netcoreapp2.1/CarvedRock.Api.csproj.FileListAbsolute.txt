@@ -1,0 +1,17 @@
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\appsettings.json
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\CarvedRock.Api.deps.json
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\CarvedRock.Api.runtimeconfig.json
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\CarvedRock.Api.runtimeconfig.dev.json
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\CarvedRock.Api.dll
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\bin\Debug\netcoreapp2.1\CarvedRock.Api.pdb
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.csproj.AssemblyReference.cache
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.GeneratedMSBuildEditorConfig.editorconfig
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.AssemblyInfoInputs.cache
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.AssemblyInfo.cs
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.csproj.CoreCompileInputs.cache
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.RazorAssemblyInfo.cache
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.RazorAssemblyInfo.cs
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.RazorTargetAssemblyInfo.cache
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.dll
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.pdb
+C:\PROJEKT\building-graphql-apis-aspdotnet-core\06\demos\CarvedRock.Api\obj\Debug\netcoreapp2.1\CarvedRock.Api.genruntimeconfig.cache
