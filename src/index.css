@@ -20,4 +20,9 @@ code {
   margin-left: auto;
 }
 
+li
+{
+    list-style-type: none;
+}
+
 

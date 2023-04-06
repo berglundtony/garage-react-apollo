@@ -44,8 +44,6 @@ export default function EditCarForm(){
   console.log(location.state)
 
   const [updateCar] = useMutation(UPDATE_CAR);
-  const { loading, error, data } = useQuery(GET_CARS);
-  const [lists, setList] = useState(data);
   const [car, setCar]= useState({
     registryNumber: location.state.registryNumber,
     brand: location.state.brand,
@@ -102,18 +100,18 @@ export default function EditCarForm(){
             e.preventDefault();
               handleSubmit(e);
               updateCar({
-                variables: 
-                {
-                  car: {
-                    registryNumber: car.registryNumber, 
-                    brand: car.brand,
-                    model: car.model,
-                    yearModel: parseInt(car.yearModel),
-                    color: car.color 
-                  }
-                },
-           });
-       }}>
+                  variables: 
+                  {
+                    car: {
+                      registryNumber: car.registryNumber, 
+                      brand: car.brand,
+                      model: car.model,
+                      yearModel: parseInt(car.yearModel),
+                      color: car.color 
+                    }
+                  },
+              });
+          }}>
             <h3 className="h3 mb-3 font-weight-normal">Edit a Car!</h3>	
              <div className="mb-3" style={{ paddingBottom: 5 }}>	
                   <label htmlFor="inputRegistryNumber">Registration number</label>

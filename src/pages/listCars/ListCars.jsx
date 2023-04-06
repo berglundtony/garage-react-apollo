@@ -1,6 +1,5 @@
 import React , { useState, useRef } from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import { useQuery, useMutation, gql, ApolloClient, InMemoryCache } from '@apollo/client';
 import { useNavigate } from "react-router-dom";
 
 const GET_CARS =
@@ -15,6 +14,31 @@ const GET_CARS =
           }
       }`;
 
+const TOGGLE_CARS = gql`
+mutation deleteCar ($registryNumber: String!, $isCompleted: Boolean!) {
+  update_cars(where: {registryNumber: {_eq: $registryNumber}}, _set: {is_completed: $isCompleted}) {
+    affected_rows
+    returning {
+      registryNumber
+      brand
+      model
+      yearModel
+      color
+    }
+  }
+}
+`;
+const DELETE_CAR = gql`
+mutation DeleteCar($registryNumber:  String!) {
+  deleteCar(registryNumber: $registryNumber) {
+    registryNumber
+    brand
+    model
+    yearModel
+    color
+  }
+}`;
+
 
 const client = new ApolloClient({
   uri: 'https://localhost:7154/graphql',
@@ -22,15 +46,52 @@ const client = new ApolloClient({
 });
 
 export default function DisplayCars(){
-const [tempCar, setTempCar]= useState([]);
 const [lists, setList] = useState([]);
-
+const [deleteCar, {client}] = useMutation(DELETE_CAR);
 
 const navigate = useNavigate();
 const navigateToEditCar = (current) => 
 { navigate(`/EditCar`, {state:current});
 };
-
+ /*
+const [deleteCar, { data: dataDelete, loading: loadingDelete, error: errorDelete }] = useMutation(DELETE_CAR,
+  {
+    refetchQueries: [{  }],
+    onCompleted: () => {
+    },
+  },
+); */
+/*
+const [deleteCar] = useMutation(
+  DELETE_CAR,
+  {
+    update(cache, { data: { delete_todo }  }) {
+      const existingCars: cache.readQuery({ query: GET_CARS });
+      const newTodos = existingTodos!.todos.filter((t:any) => (t.id !== delete_todo.id));
+      cache.writeQuery({
+        query: GET_MY_TODOS,
+        data: {todos: newTodos}
+      });
+     }
+  }
+);
+*/
+/*
+const removeCar = (current) => {
+  deleteCar(
+      {
+        registryNumber: current.registryNumber
+      }
+  );
+};*/
+/*
+const removeCar = (e,current) => {
+  e.stopPropagation();
+ deleteCar({
+   variables: { registryNumber: current.registryNumber },
+ });
+};
+*/
 const {data, loading, error} =  useQuery(GET_CARS);
   React.useEffect(() => {
     if (data) {
@@ -38,10 +99,8 @@ const {data, loading, error} =  useQuery(GET_CARS);
     }
   }, [data]);
 
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>; 
-  
 
   const carslist = data.cars.map((current, index) =>(
     <div key={index}>
@@ -52,7 +111,17 @@ const {data, loading, error} =  useQuery(GET_CARS);
     <p>Model: {current.model}</p>
     <p>Yearmodel: {current.yearModel}</p>
     <p>Color: {current.color}</p>
-    <button onClick={() => navigateToEditCar(current)}>Edit Car</button>
+    <button className="btn btn-secondary" onClick={() => navigateToEditCar(current)}>Edit Car</button>
+    &nbsp;
+    <button className="btn btn-secondary" onClick={
+      () =>
+        {
+          deleteCar({variables:
+            {registryNumber: current.registryNumber}}).
+              then(() => { window.location.reload();
+          })
+        } 
+      }>Delete Car</button>
     </div>
   ))
     
@@ -83,10 +152,12 @@ const {data, loading, error} =  useQuery(GET_CARS);
   function Edit(current, lists, setList){
       lists = Array.from(lists);
       console.log(lists);
+  }
 
-      const handleInput = event =>{
-        setTempCar(event.target.value);
-      }
+  function Delete(lists){
+        lists = Array.from(lists);
+        console.log(lists);
+  }
 
 
       let input;
@@ -103,7 +174,7 @@ const {data, loading, error} =  useQuery(GET_CARS);
       </div>
     )
   }
-}
+
 
  export function ListCars() {
     return (

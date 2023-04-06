@@ -8,7 +8,9 @@ import { EditCar } from "./pages/editcar/EditCar";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { ApolloClient, InMemoryCache, HttpLink, ApolloProvider } from '@apollo/client';
-import { onError } from '@apollo/client/link/error'
+import { onError } from '@apollo/client/link/error';
+import {Container , Button, Col} from 'react-bootstrap'  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const errorLink = onError(({graphqlErrors, networkError }) => {
   if(graphqlErrors){
